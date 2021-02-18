@@ -2,6 +2,7 @@ package com.vizsga.vizsga0218.controller;
 
 
 import com.vizsga.vizsga0218.entity.Song;
+import com.vizsga.vizsga0218.entity.Song;
 import com.vizsga.vizsga0218.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/songs")
@@ -53,14 +55,14 @@ public class SongController {
         return songlist;
     }
 
-    @PutMapping("/updatesong/{id}")
-    public Song updateSong(@PathVariable("id") String songId, @RequestBody Song song) {
-        try {
-            Song updatedSong = songService.updateSong(songId, song);
-            return updatedSong;
-        } catch (ValidationException e) {
-            return null;
+    @GetMapping ("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Song getSongById(@PathVariable ("id") String id) {
+        Optional<Song> foundSongById = songService.getSongById(id);
+        if (foundSongById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        return foundSongById.get();
     }
 
 

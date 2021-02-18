@@ -2,6 +2,7 @@ package com.vizsga.vizsga0218.controller;
 
 
 import com.vizsga.vizsga0218.entity.Artist;
+import com.vizsga.vizsga0218.entity.Artist;
 import com.vizsga.vizsga0218.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/artists")
@@ -47,20 +49,20 @@ public class ArtistController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Artist> get() {
+    public List<Artist> getArtist() {
         List<Artist> artistlist;
         artistlist = artistService.listArtists();
         return artistlist;
     }
 
-    @PutMapping("/updateartist/{id}")
-    public Artist updateArtist(@PathVariable("id") String artistId, @RequestBody Artist artist) {
-        try {
-            Artist updatedArtist = artistService.updateArtist(artistId, artist);
-            return updatedArtist;
-        } catch (ValidationException e) {
-            return null;
+    @GetMapping ("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Artist getArtistById(@PathVariable ("id") String id) {
+        Optional<Artist> foundArtistById = artistService.getArtistById(id);
+        if (foundArtistById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        return foundArtistById.get();
     }
 
 

@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/albums")
@@ -38,7 +39,7 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     public Album updateAlbum(@RequestBody Album album, @PathVariable ("id")  String id) {
         try {
-            Album updatedAlbum = albumService.updateAlbum(album, id);
+            Album updatedAlbum = albumService.updateAlbum(id, album);
             return updatedAlbum;
         } catch (ValidationException e) {
             throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
@@ -47,20 +48,20 @@ public class AlbumController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Album> get() {
+    public List<Album> getAlbum() {
         List<Album> albumlist;
             albumlist = albumService.listAlbums();
         return albumlist;
     }
 
-    @PutMapping("/updatealbum/{id}")
-    public Album updateAlbum(@PathVariable("id") String albumId, @RequestBody Album album) {
-        try {
-            Album updatedAlbum = albumService.updateAlbum(albumId, album);
-            return updatedAlbum;
-        } catch (ValidationException e) {
-            return null;
+    @GetMapping ("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Album getAlbumById(@PathVariable ("id") String id) {
+        Optional<Album> foundAlbumById = albumService.giveAlbumById(id);
+        if (foundAlbumById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+        return foundAlbumById.get();
     }
 
 
