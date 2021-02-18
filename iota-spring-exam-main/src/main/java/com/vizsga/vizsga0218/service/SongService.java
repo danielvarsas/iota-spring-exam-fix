@@ -1,19 +1,18 @@
 package com.vizsga.vizsga0218.service;
 
-
-import com.vizsga.vizsga0218.repository.AlbumRepository;
+import com.vizsga.vizsga0218.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class AlbumService {
+public class SongService {
 
-private final AlbumRepository albumRepository;
+    private final SongRepository songRepository;
 
     @Autowired
-    public AlbumService(AlbumRepository albumRepository) {
-        this.albumRepository = albumRepository;
+    public SongService(SongRepository songRepository) {
+        this.songRepository = songRepository;
     }
 }
