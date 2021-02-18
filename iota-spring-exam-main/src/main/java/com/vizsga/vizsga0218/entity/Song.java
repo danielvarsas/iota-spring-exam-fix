@@ -9,9 +9,12 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.vizsga.vizsga0218.model.Genre;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.time.LocalDate;
 
+@Data
+@Entity
 public class Song {
 
     @Id

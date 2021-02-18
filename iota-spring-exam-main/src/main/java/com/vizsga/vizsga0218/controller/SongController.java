@@ -40,7 +40,7 @@ public class SongController {
     @ResponseStatus(HttpStatus.OK)
     public Song updateSong(@RequestBody Song song, @PathVariable ("id")  String id) {
         try {
-            Song updatedSong = songService.updateSong(song, id);
+            Song updatedSong = songService.updateSong(id, song);
             return updatedSong;
         } catch (ValidationException e) {
             throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());

@@ -58,7 +58,7 @@ public class ArtistController {
     @GetMapping ("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Artist getArtistById(@PathVariable ("id") String id) {
-        Optional<Artist> foundArtistById = artistService.getArtistById(id);
+        Optional<Artist> foundArtistById = artistService.giveArtistById(id);
         if (foundArtistById.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
