@@ -1,5 +1,6 @@
 package com.vizsga.vizsga0218.model;
 
+
 public enum Genre {
     POP,
     ROCK,
