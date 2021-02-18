@@ -24,7 +24,7 @@ public class SongService {
 
     public Song createNewSong(Song fromRequest) throws ValidationException {
         if (fromRequest.getTitle() == null || fromRequest.getTitle() == "") {
-            throw new ValidationException("name can not be null or empty string!");
+            throw new ValidationException("Title can not be null or empty string!");
         } else {
             Song result = songRepository.save(fromRequest);
             return result;
@@ -38,7 +38,13 @@ public class SongService {
         }
         Song actualSong = optionalSong.get();
         actualSong.setTitle(song.getTitle());
-        actualSong.setCount(song.getCount());
+        actualSong.setLength(song.getLength());
+        actualSong.setLyrics(song.getLyrics());
+        actualSong.setYear(song.getYear());
+        actualSong.setWriterName(song.getWriterName());
+        actualSong.setGenre(song.getGenre());
+        actualSong.setArtist(song.getArtist());
+        actualSong.setAlbum(song.getAlbum());
         Song updated = songRepository.save(actualSong);
         return updated;
     }
@@ -53,8 +59,8 @@ public class SongService {
         if (optionalSong.isEmpty()) {
             throw new ValidationException("There is no song with sutch id. ");
         }
-        Song hero = optionalSong.get();
-        return hero;
+        Song song = optionalSong.get();
+        return song;
     }
 
 

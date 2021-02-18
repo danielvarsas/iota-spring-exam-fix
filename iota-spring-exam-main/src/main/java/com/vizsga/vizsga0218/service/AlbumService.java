@@ -53,8 +53,8 @@ private final AlbumRepository albumRepository;
         if (optionalAlbum.isEmpty()) {
             throw new ValidationException("There is no album with sutch id. ");
         }
-        Album hero = optionalAlbum.get();
-        return hero;
+        Album album = optionalAlbum.get();
+        return album;
     }
 
 

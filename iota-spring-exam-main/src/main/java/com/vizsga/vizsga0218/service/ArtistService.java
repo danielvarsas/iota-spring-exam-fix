@@ -53,8 +53,8 @@ public class ArtistService {
         if (optionalArtist.isEmpty()) {
             throw new ValidationException("There is no artist with sutch id. ");
         }
-        Artist hero = optionalArtist.get();
-        return hero;
+        Artist artist = optionalArtist.get();
+        return artist;
     }
 
 
